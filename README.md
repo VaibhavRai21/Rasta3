@@ -1,1 +1,3 @@
-# Rasta3
+npm install
+npm run build
+npm run dev
