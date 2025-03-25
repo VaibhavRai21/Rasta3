@@ -3,13 +3,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  esbuild: {
-    legalComments: 'none',
-  },
   server: {
-    strictPort: true,
-    hmr: {
-      clientPort: 443, // Ensures it works over HTTPS if needed
+    headers: {
+      "Content-Security-Policy": "script-src 'self' 'unsafe-eval' 'unsafe-inline'"
     }
   }
 });

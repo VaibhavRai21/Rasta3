@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+console.log("App.tsx is rendering!");
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { RouteFinder } from './components/tabs/RouteFinder';
