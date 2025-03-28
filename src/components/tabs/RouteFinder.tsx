@@ -109,22 +109,26 @@ export const RouteFinder: React.FC = () => {
         {/* Route Information Block */}
         <div className="md:col-span-2">
           <div className="mt-4 bg-gray-50 rounded-lg p-3 border border-gray-200">
-            <h3 className="text-lg font-medium text-gray-800 mb-2">Route Information</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-2">
+              Route Information
+            </h3>
 
             {busRoutes.length > 0 ? (
               <ul className="text-gray-700 text-sm mt-2 space-y-2">
                 {busRoutes.map((route, index) => (
                   <li key={index} className="p-2 bg-white shadow-sm rounded-md">
-                    <strong>Route No:</strong> {route.route_no} <br />
-                    <strong>Bus Stops:</strong> {route.stops} <br />
-                    <strong>Bus Type:</strong> {route.bus_type} <br />
-                    <strong>Route Length:</strong> {route.route_length} km<br />
-                    <strong>Departure Time:</strong> {route.departure_time || "N/A"}
+                    <strong>Bus Number:</strong> {route["Bus Number"]} <br />
+                    <strong>Route No:</strong> {route["Route No."]} <br />
+                    <strong>Bus Type:</strong> {route["Type"]} <br />
+                    <strong>Route Length:</strong> {route["Route Length"]} km<br />
+                    <strong>Departure Time:</strong> {route["Departure Timings"] || "N/A"}
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500 text-sm">No routes found. Try a different location.</p>
+              <p className="text-gray-500 text-sm">
+                No routes found. Try a different location.
+              </p>
             )}
           </div>
         </div>
