@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li><a href="#" className="text-gray-300 hover:text-white">Abhijit Harsh</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white">Prakhar Jain</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white">Vaibhav Rai</a></li>
+              <li><a href="https://github.com/VaibhavRai21" className="text-gray-300 hover:text-white">Vaibhav Rai</a></li>
             </ul>
           </div>
           <div>

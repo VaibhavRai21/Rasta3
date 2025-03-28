@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bus } from "lucide-react";
 
 export const RouteFinder: React.FC = () => {
+  const [locations, setLocations] = useState<string[]>([]);
   const [selectedStart, setSelectedStart] = useState("");
   const [selectedEnd, setSelectedEnd] = useState("");
   const [busRoutes, setBusRoutes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Fetch locations for dropdowns
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/locations");
+        const data = await response.json();
+        setLocations(data);
+      } catch (err) {
+        console.error("Error fetching locations", err);
+      }
+    };
+    fetchLocations();
+  }, []);
+
+  // Fetch routes with timings
   const fetchRoutes = async () => {
     if (!selectedStart || !selectedEnd) {
-      setError("Please enter both start and end locations.");
+      setError("Please select both start and end locations.");
       return;
     }
 
@@ -50,26 +66,36 @@ export const RouteFinder: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Starting Point
               </label>
-              <input
+              <select
                 className="input-field"
-                type="text"
                 value={selectedStart}
                 onChange={(e) => setSelectedStart(e.target.value)}
-                placeholder="Enter starting location"
-              />
+              >
+                <option value="">Select Starting Location</option>
+                {locations.map((loc, index) => (
+                  <option key={index} value={loc}>
+                    {loc}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Destination
               </label>
-              <input
+              <select
                 className="input-field"
-                type="text"
                 value={selectedEnd}
                 onChange={(e) => setSelectedEnd(e.target.value)}
-                placeholder="Enter destination"
-              />
+              >
+                <option value="">Select Destination</option>
+                {locations.map((loc, index) => (
+                  <option key={index} value={loc}>
+                    {loc}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <button className="btn-primary" onClick={fetchRoutes}>
@@ -89,11 +115,11 @@ export const RouteFinder: React.FC = () => {
               <ul className="text-gray-700 text-sm mt-2 space-y-2">
                 {busRoutes.map((route, index) => (
                   <li key={index} className="p-2 bg-white shadow-sm rounded-md">
-                    <strong>Route No :</strong> {route.route_no} <br />
-                    <strong>Bus Stops :</strong> {route.stops} <br />
-                    <strong>Bus Type :</strong> {route.bus_type} <br />
-                    <strong>Route Length :</strong> {route.route_length} km <br />
-                    <strong>Departure Timings :</strong> {route.departure_times}
+                    <strong>Route No:</strong> {route.route_no} <br />
+                    <strong>Bus Stops:</strong> {route.stops} <br />
+                    <strong>Bus Type:</strong> {route.bus_type} <br />
+                    <strong>Route Length:</strong> {route.route_length} km<br />
+                    <strong>Departure Time:</strong> {route.departure_time || "N/A"}
                   </li>
                 ))}
               </ul>
